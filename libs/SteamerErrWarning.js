@@ -18,5 +18,11 @@ module.exports = {
 	},
 	PackageJsonMissing: function(project) {
 		console.log(("package.json in " + project + " project is missing").red);
+	},
+	FileExistErr: function(file) {
+		console.log((file + " has existed").red);
+	},
+	HasNoRepo: function(repo) {
+		console.log(("steamer has no repo " + repo).red);
 	}
 };

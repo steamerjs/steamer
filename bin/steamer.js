@@ -9,7 +9,8 @@ const fs = require('fs'),
 	  _ = require('lodash');
 
 const Warning = require('../libs/SteamerErrWarning'),
-	  Logger = require('../libs/SteamerLogger');
+	  Logger = require('../libs/SteamerLogger'),
+	  Get = require('../libs/SteamerGet');
 
 var steamerConfigPath = path.resolve('steamer.config.js'),
 	steamerConfig = {},
@@ -203,9 +204,9 @@ function execIntall() {
 	projectSrc.map((item, key) => {
 		let packageJsonPath = path.join(item, 'package.json');
 
-		if (!fs.existsSync(packageJsonPath)) {
-			throw new Warning.PackageJsonMissing(projects[key]);
-		}
+		// if (!fs.existsSync(packageJsonPath)) {
+		// 	throw new Warning.PackageJsonMissing(projects[key]);
+		// }
 
 		packageJson[key] = require(packageJsonPath);
 	});
@@ -268,6 +269,20 @@ function execIntall() {
 }
 
 function init() {
+
+	if (argv.init) {
+		// avoid overriding
+		let configSrcPath = "./node_modules/steamer/template/steamer.config.js",
+			configDestPath = path.resolve('steamer.config.js');
+		if (fs.existsSync(configDestPath)) {
+			throw new Warning.FileExistErr("steamer.config.js");
+		}
+
+		let configStr = fs.readFileSync(configSrcPath);
+		fs.writeFileSync(configDestPath, configStr);
+		Logger.log('steamer.config.js is initiated');
+	}
+
 	steamerConfig = readConfig();
 	projectConfig = steamerConfig.projects;
 	// defaultNodeVer = steamerConfig.defaultNodeVersion;
@@ -285,6 +300,12 @@ function init() {
 	}
 	else if (argv.install) {
 		execIntall();
+	}
+	else if (argv.get) {
+		Get(argv);
+	}
+	else if (argv.init) {
+
 	}
 	else {
 		throw new Warning.Command();
