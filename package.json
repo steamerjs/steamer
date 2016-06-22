@@ -4,7 +4,7 @@
   "description": "steamer",
   "main": "index.js",
   "scripts": {
-    "postinstall": "node ./bin/postinstall.js"
+    
   },
   "bin": {
     "steamer": "./bin/steamer.js"
