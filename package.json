@@ -1,0 +1,43 @@
+{
+  "name": "steamer",
+  "version": "0.0.1",
+  "description": "steamer",
+  "main": "index.js",
+  "scripts": {
+    
+  },
+  "scripts": {
+    
+  },
+  "bin": {
+    "steamer": "./bin/steamer.js"
+  },
+  "files": [
+    "bin",
+    "libs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lcxfs1991/steamer.git"
+  },
+  "keywords": [
+    "steamer"
+  ],
+  "author": "lcxfs1991",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lcxfs1991/steamer/issues"
+  },
+  "homepage": "https://github.com/lcxfs1991/steamer#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "merge-stream": "^1.0.0",
+    "lodash": "^4.13.1",
+    "run-sequence": "^1.2.1",
+    "yargs": "^4.7.1",
+    "colors": "^1.1.2"
+  },
+  "devDependencies": {
+    
+  }
+}
