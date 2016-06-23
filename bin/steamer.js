@@ -6,7 +6,9 @@ const fs = require('fs'),
 	  argv = require('yargs').argv,
 	  exec = require('child_process').exec,
 	  execSync = require('child_process').execSync,
-	  _ = require('lodash');
+	  _ = require('lodash'),
+	  requireg = require('requireg'),
+	  npm = requireg('npm');
 
 const Warning = require('../libs/SteamerErrWarning'),
 	  Logger = require('../libs/SteamerLogger'),
@@ -149,7 +151,36 @@ function installPkg(paths, projects) {
 
 		// let cmd = "nvm use " + nodeVer;
 		// console.log(execSync(cmd));
+		 
+		let pkgJsonPath = path.join(cwd, 'package.json'),
+			pgkJsonConfig = {};
+
+		if (fs.existsSync(pkgJsonPath)) {
+			pgkJsonConfig = JSON.parse(fs.readFileSync(pkgJsonPath));
+		}
+
+		console.log(pgkJsonConfig);
 		
+		npm.load(pkgJsonPath, function (er) {
+
+			if (er) {
+				Logger.error(currentProject + ": \n" + er);
+				return;
+			}
+			
+		  	npm.commands.install([], function (er, data) {
+		    	if (er){
+		    		Logger.error(currentProject + ": \n" + er);
+		    	}
+		    	else {
+		    		Logger.log(currentProject + ": \n" + data);
+		    	}
+		    	
+		  	});
+		})
+
+		return;
+
 		let cmd = "npm i";
 
 		let childProcess = exec(cmd, {cwd}, function (error, stdout, stderr) {
@@ -175,6 +206,7 @@ function installPkg(paths, projects) {
         });
 	};
 
+	// console.log(paths);
 	runNpn(paths[0], 0);
 }
 
