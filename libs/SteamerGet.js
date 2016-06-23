@@ -1,5 +1,10 @@
 "use strict";
 
+/**
+ * Get Steamer Pgk
+ * by heyli 2016.06.23
+ */
+
 const fs = require('fs'),
 	  exec = require('child_process').exec,
 	  execSync = require('child_process').execSync,

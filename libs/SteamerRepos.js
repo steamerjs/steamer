@@ -1,3 +1,8 @@
+/**
+ * Steamer Pkg Default Config and Git Url
+ * by heyli 2016.06.23
+ */
+
 module.exports = {
 	'steamer-react': {
 		git: 'https://github.com/lcxfs1991/steamer-react.git',

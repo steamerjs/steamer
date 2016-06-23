@@ -1,3 +1,8 @@
+/**
+ * Error and Warning
+ * by heyli 2016.06.23
+ */
+
 var colors = require('colors');
 
 module.exports = {
