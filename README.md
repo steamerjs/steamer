@@ -72,7 +72,7 @@ var steamerConfig  = {
 	},
 	repos: {							    // 自己想加入steamer管理的boilerplate
         "react-cdk": { 
-            git: "react-cdk",
+            git: "react-cdk",				// 默认源文位位置，可以通过npm --install --name [localName]的localName更改
             config: {
                 src: "./react-cdk/",
                 cmds: {
