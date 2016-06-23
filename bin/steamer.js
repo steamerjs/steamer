@@ -158,8 +158,6 @@ function installPkg(paths, projects) {
 		if (fs.existsSync(pkgJsonPath)) {
 			pgkJsonConfig = JSON.parse(fs.readFileSync(pkgJsonPath));
 		}
-
-		console.log(pgkJsonConfig);
 		
 		npm.load(pkgJsonPath, function (er) {
 
@@ -175,35 +173,15 @@ function installPkg(paths, projects) {
 		    	else {
 		    		Logger.log(currentProject + ": \n" + data);
 		    	}
+
+		    	if (num <= paths.length - 2) {
+	        		++num;
+	        		runNpn(paths[num], num);
+	        	} 
 		    	
 		  	});
-		})
+		});
 
-		return;
-
-		let cmd = "npm i";
-
-		let childProcess = exec(cmd, {cwd}, function (error, stdout, stderr) {
-			if (error !== null) {
-				console.log(error);
-			}
-        });
-
-        childProcess.stdout.on('data', function (data) {
-        	Logger.log(currentProject + ": \n" + data);
-        });
-
-        childProcess.stderr.on('data', function (data) {
-        	Logger.error(currentProject + ": \n" + data);
-        });
-
-        childProcess.on('exit', (code) => {
-        	Logger.log(currentProject + ": \n" + 'child process exited with code ' + code);
-        	if (num <= paths.length - 2) {
-        		++num;
-        		runNpn(paths[num], num);
-        	} 
-        });
 	};
 
 	// console.log(paths);
