@@ -27,7 +27,10 @@ module.exports = {
 	FileExistErr: function(file) {
 		console.log((file + " has existed").red);
 	},
+	FolderNotExistErr: function(folder) {
+		console.log((folder + " has existed").red);
+	},
 	HasNoRepo: function(repo) {
 		console.log(("steamer has no repo " + repo).red);
-	}
+	},
 };

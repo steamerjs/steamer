@@ -91,6 +91,8 @@ module.exports = steamerConfig;
 
 steamer --init 初始化项目并生成初始steamer.config.js
 
+steamer -- remove [project] 删除项目文件夹及对应steamer.config.js中projects的配置
+
 steamer --dev 启动开发命令
 
 steamer --pub 启动发布命令

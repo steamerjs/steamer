@@ -14,7 +14,9 @@ const Warning = require('../libs/SteamerErrWarning'),
 	  Logger = require('../libs/SteamerLogger'),
 	  Get = require('../libs/SteamerGet'),
 	  Install = require('../libs/SteamerInstall'),
-	  DevOrPub = require('../libs/SteamerDevOrPub');
+	  DevOrPub = require('../libs/SteamerDevOrPub'),
+	  Init = require('../libs/SteamerInit'),
+	  Remove = require('../libs/SteamerRemove');
 
 var steamerConfigPath = path.resolve('steamer.config.js'),
 	steamerConfig = {},
@@ -44,16 +46,7 @@ function readConfig() {
 function init() {
 
 	if (argv.init) {
-		// avoid overriding
-		let configSrcPath = "./node_modules/steamer/template/steamer.config.js",
-			configDestPath = path.resolve('steamer.config.js');
-		if (fs.existsSync(configDestPath)) {
-			throw new Warning.FileExistErr("steamer.config.js");
-		}
-
-		let configStr = fs.readFileSync(configSrcPath);
-		fs.writeFileSync(configDestPath, configStr);
-		Logger.log('steamer.config.js is initiated');
+		Init();
 	}
 
 	steamerConfig = readConfig();
@@ -76,6 +69,9 @@ function init() {
 	}
 	else if (argv.get) {
 		Get(steamerConfig);
+	}
+	else if (argv.remove) {
+		Remove(steamerConfig);
 	}
 	else if (argv.init) {
 
