@@ -69,7 +69,19 @@ var steamerConfig  = {
 
 			}
 		},
-	}
+	},
+	repos: {							    // 自己想加入steamer管理的boilerplate
+        "react-cdk": { 
+            git: "react-cdk",
+            config: {
+                src: "./react-cdk/",
+                cmds: {
+                    dev: "npm run dev", 
+                    pub: "npm run pub",
+                },
+            },
+        }
+    }
 };
 
 module.exports = steamerConfig;
@@ -100,5 +112,9 @@ steamer --pub 启动发布命令
 steamer --install 进行项目的node_modules包安装和package.json配置
 
 steamer --get [steamer-react|steamer-gulp|steamer-koa] --name [localname] 安装steamer体系内的构建
+
+
+
+暂时不提供对个别项目的特殊命令，以及单独项目的dev或pub，因为你可以随时到项目里面单独通过命令行去实现
 
 

@@ -8,12 +8,13 @@
 const fs = require('fs'),
 	  argv = require('yargs').argv,
 	  exec = require('child_process').exec,
-	  execSync = require('child_process').execSync,
+	  _ = require('lodash'),
 	  Logger = require('./SteamerLogger'),
 	  Warning = require('./SteamerErrWarning'),
 	  path = require('path'),
-	  repos = require('./SteamerRepos'),
 	  Install = require('./SteamerInstall');
+
+var repos = require('./SteamerRepos');
 
 
 function updateConfig(repo, localName) {
@@ -34,6 +35,12 @@ module.exports = function(steamerConfig) {
 	let repo = argv.get,
 		localName = argv.name || argv.get;
 	localName =	localName.replace('\\', '').replace('./', '').replace('.', '');
+
+	console.log(steamerConfig.hasOwnProperty('repos'));
+
+	if (steamerConfig.hasOwnProperty('repos')) {
+		repos = _.merge(repos, steamerConfig.repos);
+	}
 
 	if (!repos.hasOwnProperty(repo)) {
 		throw new Warning.HasNoRepo(repo);
