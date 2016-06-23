@@ -6,12 +6,14 @@
  */
 
 const fs = require('fs'),
+	  argv = require('yargs').argv,
 	  exec = require('child_process').exec,
 	  execSync = require('child_process').execSync,
 	  Logger = require('./SteamerLogger'),
 	  Warning = require('./SteamerErrWarning'),
 	  path = require('path'),
-	  repos = require('./SteamerRepos');
+	  repos = require('./SteamerRepos'),
+	  Install = require('./SteamerInstall');
 
 
 function updateConfig(repo, localName) {
@@ -27,7 +29,7 @@ function updateConfig(repo, localName) {
 	fs.writeFileSync(path.resolve('steamer.config.js'), configStr);
 }
 
-module.exports = function(argv) {
+module.exports = function(steamerConfig) {
 
 	let repo = argv.get,
 		localName = argv.name || argv.get;
@@ -55,9 +57,7 @@ module.exports = function(argv) {
     		updateConfig(repo, localName);
 
     		Logger.log('npm install start...');
-    		exec('steamer --install', function (error, stdout, stderr) {
-    			console.log(error);
-    		});
+    		Install(steamerConfig);
     	}
     	else {
     		Logger.error('clone ' + repo + ' error');

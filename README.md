@@ -89,9 +89,14 @@ module.exports = steamerConfig;
 
 ## 使用
 
+steamer --init 初始化项目并生成初始steamer.config.js
+
 steamer --dev 启动开发命令
 
 steamer --pub 启动发布命令
 
 steamer --install 进行项目的node_modules包安装和package.json配置
+
+steamer --get [steamer-react|steamer-gulp|steamer-koa] --name [localname] 安装steamer体系内的构建
+
 

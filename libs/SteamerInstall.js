@@ -10,8 +10,7 @@ const fs = require('fs'),
 	  npm = requireg('npm');
 
 const Warning = require('../libs/SteamerErrWarning'),
-	  Logger = require('../libs/SteamerLogger'),
-	  Get = require('../libs/SteamerGet');
+	  Logger = require('../libs/SteamerLogger');
 
 var steamerConfig = {},
 	projectConfig = {};
@@ -35,7 +34,7 @@ function installPkg(paths, projects) {
 			pgkJsonConfig = {};
 
 		if (fs.existsSync(pkgJsonPath)) {
-			pgkJsonConfig = JSON.parse(fs.readFileSync(pkgJsonPath));
+			pgkJsonConfig = require(pkgJsonPath);
 		}
 		
 		npm.load(pkgJsonPath, function (er) {
@@ -93,15 +92,16 @@ function execIntall() {
 	projectSrc.map((item, key) => {
 		let packageJsonPath = path.join(item, 'package.json');
 
-		// if (!fs.existsSync(packageJsonPath)) {
-		// 	throw new Warning.PackageJsonMissing(projects[key]);
-		// }
+		if (!fs.existsSync(packageJsonPath)) {
+			throw new Warning.PackageJsonMissing(projects[key]);
+		}
 
 		packageJson[key] = require(packageJsonPath);
 	});
 
 	mainPackageJson = require(path.resolve("package.json"));
 
+	// main project gets value of dependencies and devDependencies from subprojects
 	projectSrc.map((item, key) => {
 		let diffDependencies = _.difference(_.keys(packageJson[key].dependencies), _.keys(mainPackageJson.dependencies)),
 			diffDevDependencies =_.difference(_.keys(packageJson[key].devDependencies), _.keys(mainPackageJson.devDependencies));
@@ -159,7 +159,7 @@ function execIntall() {
 
 module.exports = function(steamerConfig) {
 	steamerConfig = steamerConfig;
-	projectConfig = steamerConfig.project;
+	projectConfig = steamerConfig.projects;
 
 	execIntall();
 };
