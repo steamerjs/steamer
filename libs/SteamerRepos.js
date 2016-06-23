@@ -5,7 +5,7 @@
 
 module.exports = {
 	'steamer-react': {
-		git: 'https://github.com/lcxfs1991/steamer-react.git',
+		git: 'https://github.com/SteamerTeam/steamer-react.git',
 		config: {
             src: "./react/",
             cmds: {
@@ -15,7 +15,7 @@ module.exports = {
         },
 	},
 	'steamer-koa': {
-		git: 'https://github.com/lcxfs1991/steamer-koa.git',
+		git: 'https://github.com/SteamerTeam/steamer-koa.git',
 		config: {
             src: "./koa/",
             cmds: {
@@ -25,7 +25,7 @@ module.exports = {
         },
 	},
 	'steamer-gulp': {
-		git: 'https://github.com/lcxfs1991/steamer-gulp.git',
+		git: 'https://github.com/SteamerTeam/steamer-gulp.git',
 		config: {
             src: "./normal/",
             cmds: {
