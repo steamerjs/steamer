@@ -22,7 +22,7 @@ function updateConfig(repo, localName) {
 		repoConfig = repos[repo].config;
 
 	repoConfig.src = path.resolve(localName);
-	config.projects[localName] = repoConfig;
+	config.projects[path.basename(localName)] = repoConfig;
 
 	let configStr = 'var steamerConfig = ' + JSON.stringify(config, null, 4) 
 					+ '\n ' + 'module.exports = steamerConfig;';
@@ -35,8 +35,6 @@ module.exports = function(steamerConfig) {
 	let repo = argv.get,
 		localName = argv.name || argv.get;
 	localName =	localName.replace('\\', '').replace('./', '').replace('.', '');
-
-	console.log(steamerConfig.hasOwnProperty('repos'));
 
 	if (steamerConfig.hasOwnProperty('repos')) {
 		repos = _.merge(repos, steamerConfig.repos);
