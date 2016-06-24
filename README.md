@@ -1,13 +1,13 @@
-### 旧的steamer更名为[steamer-gulp](https://github.com/lcxfs1991/steamer-gulp)
+### 旧的steamer更名为[steamer-gulp](https://github.com/SteamerTeam/steamer-gulp)
 
 # steamer发展成为多项目管理体系
 
 ## 安装
-npm install lcxfs1991/steamer --save
+npm install SteamerTeam/steamer --save
 
 ```
 "dependencies": {
-    "steamer": "github:lcxfs1991/steamer"
+    "steamer": "github:SteamerTeam/steamer"
 },
 ```
 
