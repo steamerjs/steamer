@@ -45,7 +45,6 @@ function RemoveProject(project) {
 	Logger.log("remove project " + project + " success");
 }
 
-
 module.exports = function(steamerConfig) {
 	steamerConfig = steamerConfig;
 	projectConfig = steamerConfig.projects;

@@ -21,6 +21,25 @@ npm install lcxfs1991/steamer --save
 * 一键进行开发以及生成编译好的文件
 * 减少node_modules包冗余
 
+## 管理目录的层级
+一般来说，目录层级主要有2种类型：
+
+* 平衡型
+-- Main Project
+---- A Project
+---- B Project
+
+适用范围：主要是多个不同类型的项目或者构建差别较大
+
+* 父子型
+-- Main Project
+---- A Project
+------ B Project
+
+适用范围：主要是同构/直出、关键页面的项目重构等
+对于父子型，steamer只支持两层
+
+
 ## 配置
 
 下面就是基本的配置
@@ -101,20 +120,49 @@ module.exports = steamerConfig;
 
 ## 使用
 
-steamer --init 初始化项目并生成初始steamer.config.js
-
-steamer -- remove [project] 删除项目文件夹及对应steamer.config.js中projects的配置
-
-steamer --dev 启动开发命令
-
-steamer --pub 启动发布命令
-
-steamer --install 进行项目的node_modules包安装和package.json配置
-
-steamer --get [steamer-react|steamer-gulp|steamer-koa] --name [localname] 安装steamer体系内的构建
+* steamer --init 初始化项目并生成初始steamer.config.js
 
 
+* steamer --get [steamer-react|steamer-gulp|steamer-koa] --name [localname] 安装steamer体系内的构建
+	
+	localName可以是某个现存project的子目录。例如steamer-react/steamer-koa。如果这要安装，steamer.config.js会自动生产如下配置：
 
-暂时不提供对个别项目的特殊命令，以及单独项目的dev或pub，因为你可以随时到项目里面单独通过命令行去实现
+	```
+	var steamerConfig = {
+	    "projects": {
+	        "steamer-react": {
+	            "src": "xxx\\project\\steamer-react",
+	            "cmds": {
+	                "dev": "npm run dev",
+	                "pub": "npm run pub"
+	            }
+	        },
+	        "steamer-koa": {
+	            "src": "xxx\\project\\steamer-react\\node",
+	            "cmds": {
+	                "dev": "npm start",
+	                "pub": ""
+	            }
+	        }
+	    },
+	}
+	```
+
+* steamer --install 进行项目的node_modules包安装和package.json配置
+	
+	若在```steamer --get``的时候安装node_modules失败，可以重新用steamer --install进行重新安装
+
+
+* steamer --dev --project [subproject] 启动开发命令，添加--project参数可仅启动特定项目
+
+
+* steamer --pub --project [subproject] 启动发布命令,添加--project参数可仅启动特定项目
+
+
+* steamer -- remove [project] 删除项目文件夹及对应steamer.config.js中projects的配置
+	
+	此命令也会对子目录的文件夹及steamer.config.js的配置一并删除
+
+
 
 
