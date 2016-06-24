@@ -3,7 +3,15 @@
 # steamer发展成为多项目管理体系
 
 ## 安装
+
+1. 新建一个项目文件夹（此处不主张全局安装）
+
+2. 在项目文件夹里新建一个package.json
+
+3. 使用以下方法：
 npm install SteamerTeam/steamer --save
+
+或在package.json里添加, 并npm install
 
 ```
 "dependencies": {
