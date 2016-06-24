@@ -21,12 +21,21 @@ function RemoveProject(project) {
 		throw new Warning.FolderNotExistErr(folderPath);
 	}
 
-	fs.remove(folderPath);
+	Logger.log(project + " is being deleted");
+
+	fs.removeSync(folderPath);
 
 	let config = require(path.resolve('steamer.config.js'));
 
 	if (config.projects.hasOwnProperty(project)) {
 		delete config.projects[project];
+
+		Object.keys(config.projects).map((item, index) => {
+			if (!fs.existsSync(config.projects[item].src)) {
+				delete config.projects[item];
+			}
+		});
+
 		let configStr = 'var steamerConfig = ' + JSON.stringify(config, null, 4) 
 					+ '\n ' + 'module.exports = steamerConfig;';
 	
@@ -35,7 +44,6 @@ function RemoveProject(project) {
 
 	Logger.log("remove project " + project + " success");
 }
-
 
 module.exports = function(steamerConfig) {
 	steamerConfig = steamerConfig;

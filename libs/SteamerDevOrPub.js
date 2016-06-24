@@ -20,13 +20,21 @@ var steamerConfig = {},
  */
 function execDevOrPub() {
 
-	let cmdType = (argv.dev) ? 'dev' : 'pub';
+	let cmdType = (argv.dev) ? 'dev' : 'pub',
+		subProject = argv.project || null;
 
 	let projects = Object.keys(projectConfig) || [],
 		projectSrc = [],
 		projectCmds = [];
 		// projectNodeVers = [];
 	
+	// only for a subproject
+	if (subProject) {
+		projects = projects.filter((item, key) => {
+			return (item === subProject);
+		});
+	}
+
 	projects.map((item, key) => {
 		let project = projectConfig[item];
 		

@@ -67,6 +67,23 @@ function installPkg(paths, projects) {
 }
 
 /**
+ * Search Main Project Path
+ * @return {[type]} [description]
+ */
+function getMainProjectPath() {
+	let basePath = path.resolve(),
+		key = '';
+
+	while (1) {
+		key = path.basename(basePath);
+		if (!projectConfig.hasOwnProperty(key)) {
+			return basePath;
+		}
+		basePath = path.dirname(basePath);
+	}
+};
+
+/**
  * execute installation command
  * @return {[type]} [description]
  */
@@ -86,8 +103,8 @@ function execIntall() {
 		// projectNodeVers.push(project.node || defaultNodeVer);
 	});
 
-	let packageJson = {},
-		mainPackageJson = {};
+	let packageJson = {}, // subproject package.json
+		mainPackageJson = {};	// main project package.json
 
 	projectSrc.map((item, key) => {
 		let packageJsonPath = path.join(item, 'package.json');
@@ -99,8 +116,8 @@ function execIntall() {
 		packageJson[key] = require(packageJsonPath);
 	});
 
-	mainPackageJson = require(path.resolve("package.json"));
-
+	mainPackageJson = require(path.join(getMainProjectPath(), "package.json"));
+	
 	// main project gets value of dependencies and devDependencies from subprojects
 	projectSrc.map((item, key) => {
 		let diffDependencies = _.difference(_.keys(packageJson[key].dependencies), _.keys(mainPackageJson.dependencies)),
