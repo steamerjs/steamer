@@ -1,6 +1,6 @@
 "use strict";
 
-const fs = require('fs'),
+const fs = require('fs-extra'),
 	  path = require('path'),
 	  argv = require('yargs').argv,
 	  exec = require('child_process').exec,
@@ -30,11 +30,10 @@ function installPkg(paths, projects) {
 		// let cmd = "nvm use " + nodeVer;
 		// console.log(execSync(cmd));
 		 
-		let pkgJsonPath = path.join(cwd, 'package.json'),
-			pgkJsonConfig = {};
+		let pkgJsonPath = path.join(cwd, 'package.json');
 
-		if (fs.existsSync(pkgJsonPath)) {
-			pgkJsonConfig = require(pkgJsonPath);
+		if (!fs.existsSync(pkgJsonPath)) {
+			throw new Warning.FolderNotExistErr(pkgJsonPath);
 		}
 		
 		npm.load(pkgJsonPath, function (er) {
@@ -51,6 +50,9 @@ function installPkg(paths, projects) {
 		    	else {
 		    		Logger.log(currentProject + ": \n" + data);
 		    	}
+
+		    	fs.unlink(pkgJsonPath);
+		    	fs.renameSync(path.join(cwd, 'package_tmp.json'), pkgJsonPath);
 
 		    	if (num <= paths.length - 2) {
 	        		++num;
@@ -123,11 +125,11 @@ function execIntall() {
 		let diffDependencies = _.difference(_.keys(packageJson[key].dependencies), _.keys(mainPackageJson.dependencies)),
 			diffDevDependencies =_.difference(_.keys(packageJson[key].devDependencies), _.keys(mainPackageJson.devDependencies));
 
-		packageJson[key].dependenciesBk = packageJson[key].dependenciesBk || {},
-		packageJson[key].devDependenciesBk = packageJson[key].devDependenciesBk || {};
+		// packageJson[key].dependenciesBk = packageJson[key].dependenciesBk || {},
+		// packageJson[key].devDependenciesBk = packageJson[key].devDependenciesBk || {};
 
-		packageJson[key].dependenciesBk = _.merge(packageJson[key].dependenciesBk, packageJson[key].dependencies);
-		packageJson[key].devDependenciesBk = _.merge(packageJson[key].devDependenciesBk, packageJson[key].devDependencies);
+		// packageJson[key].dependenciesBk = _.merge(packageJson[key].dependenciesBk, packageJson[key].dependencies);
+		// packageJson[key].devDependenciesBk = _.merge(packageJson[key].devDependenciesBk, packageJson[key].devDependencies);
 		
 		diffDependencies.map((item, index) => {
 			let nm = mainPackageJson.dependencies[item];
@@ -164,8 +166,17 @@ function execIntall() {
 		});
 		
 		let packageJsonPath = path.join(item, 'package.json');
+		
+		if (!fs.existsSync(path.dirname(packageJsonPath) + '/package_tmp.json')) {
+			fs.copySync(packageJsonPath, path.dirname(packageJsonPath) + '/package_tmp.json');
+		}
+		
 		fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson[key], null, 4));
 	});
+	
+	if (!fs.existsSync(path.resolve("package_tmp.json"))) {
+		fs.copySync(path.resolve("package.json"), path.resolve("package_tmp.json"));
+	}
 	
 	fs.writeFileSync(path.resolve("package.json"), JSON.stringify(mainPackageJson, null, 4));
 

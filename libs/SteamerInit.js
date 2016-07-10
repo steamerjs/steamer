@@ -20,14 +20,14 @@ function initSteamerConfig() {
 	let configStr = fs.readFileSync(configSrcPath);
 	fs.writeFileSync(configDestPath, configStr);
 
-	let configSrcPath = path.join(__dirname, '../template/package.json'),
-		configDestPath = path.resolve('package.json');
-	if (fs.existsSync(configDestPath)) {
+	let pgkSrcPath = path.join(__dirname, '../template/package.json'),
+		pkgDestPath = path.resolve('package.json');
+	if (fs.existsSync(pkgDestPath)) {
 		throw new Warning.FileExistErr("package.json");
 	}
 
-	let configStr = fs.readFileSync(configSrcPath);
-	fs.writeFileSync(configDestPath, configStr);
+	let pgkStr = fs.readFileSync(pgkSrcPath);
+	fs.writeFileSync(pkgDestPath, pgkStr);
 
 
 	Logger.log('steamer.config.js and package.json are initiated');
