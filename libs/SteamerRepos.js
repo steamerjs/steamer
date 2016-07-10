@@ -5,7 +5,7 @@
 
 module.exports = {
 	'steamer-react': {
-		git: 'https://github.com/lcxfs1991/steamer-react.git',
+		git: 'https://github.com/lcxfs1991/steamer-react.git -b react',
 		config: {
             src: "./react/",
             cmds: {
@@ -14,6 +14,16 @@ module.exports = {
             },
         },
 	},
+    'steamer-react-isomorphic': {
+        git: 'https://github.com/lcxfs1991/steamer-react.git -b react-isomorphic',
+        config: {
+            src: "./react/",
+            cmds: {
+                dev: "npm run dev", 
+                pub: "npm run pub",
+            },
+        },
+    },
 	'steamer-koa': {
 		git: 'https://github.com/lcxfs1991/steamer-koa.git',
 		config: {

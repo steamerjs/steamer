@@ -11,7 +11,7 @@ const path = require('path'),
 
 function initSteamerConfig() {
 	// avoid overriding
-	let configSrcPath = "./node_modules/steamer/template/steamer.config.js",
+	let configSrcPath = path.resolve('../template/steamer.config.js'),
 		configDestPath = path.resolve('steamer.config.js');
 	if (fs.existsSync(configDestPath)) {
 		throw new Warning.FileExistErr("steamer.config.js");
