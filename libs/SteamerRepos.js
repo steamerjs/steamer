@@ -4,34 +4,44 @@
  */
 
 module.exports = {
-	'steamer-react': {
-		git: 'https://github.com/SteamerTeam/steamer-react.git',
-		config: {
+    'steamer-react': {
+        git: 'https://github.com/lcxfs1991/steamer-react.git -b react',
+        config: {
             src: "./react/",
             cmds: {
                 dev: "npm run dev", 
                 pub: "npm run pub",
             },
         },
-	},
-	'steamer-koa': {
-		git: 'https://github.com/SteamerTeam/steamer-koa.git',
-		config: {
+    },
+    'steamer-react-isomorphic': {
+        git: 'https://github.com/lcxfs1991/steamer-react.git -b react-isomorphic',
+        config: {
+            src: "./react/",
+            cmds: {
+                dev: "npm run dev", 
+                pub: "npm run pub",
+            },
+        },
+    },
+    'steamer-koa': {
+        git: 'https://github.com/lcxfs1991/steamer-koa.git',
+        config: {
             src: "./koa/",
             cmds: {
                 dev: "npm start", 
                 pub: "",
             },
         },
-	},
-	'steamer-gulp': {
-		git: 'https://github.com/SteamerTeam/steamer-gulp.git',
-		config: {
+    },
+    'steamer-gulp': {
+        git: 'https://github.com/lcxfs1991/steamer-gulp.git',
+        config: {
             src: "./normal/",
             cmds: {
                 dev: "npm run dev", 
                 pub: "npm run pub",
             },
         },
-	}
+    }
 };
