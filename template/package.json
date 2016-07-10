@@ -1,0 +1,17 @@
+{
+    "name": "steamer",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        
+    },
+    "author": "alloyteam",
+    "license": "MIT",
+    "dependencies": {
+
+    },
+    "devDependencies": {
+        
+    }
+}

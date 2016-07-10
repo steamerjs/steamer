@@ -19,7 +19,18 @@ function initSteamerConfig() {
 
 	let configStr = fs.readFileSync(configSrcPath);
 	fs.writeFileSync(configDestPath, configStr);
-	Logger.log('steamer.config.js is initiated');
+
+	let configSrcPath = path.join(__dirname, '../template/package.json'),
+		configDestPath = path.resolve('package.json');
+	if (fs.existsSync(configDestPath)) {
+		throw new Warning.FileExistErr("package.json");
+	}
+
+	let configStr = fs.readFileSync(configSrcPath);
+	fs.writeFileSync(configDestPath, configStr);
+
+
+	Logger.log('steamer.config.js and package.json are initiated');
 }
 
 
